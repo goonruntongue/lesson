@@ -1,0 +1,9 @@
+<div>改行と空白を反映させられるようにして、<br />
+スタイルシートを整えたバージョンです。<br />
+改行のを反映するコードは<br />
+&nbsp;&nbsp;&nbsp;&nbsp;nl2br($_POST["comment"]);<br />
+です。<br />
+<br />
+また空白を文字参照（&nbsp;）に置き換えるコードは<br />
+&nbsp;&nbsp;&nbsp;&nbsp;str_replace("&nbsp;","&nbsp;",$_POST["comment"]);<br />
+です。</div>
