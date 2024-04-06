@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>簡易メモ帳アプリ</title>
+    <!--Google Fonts-->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@100;200;300;400;500;600;700;800;900&family=Oswald:wght@200;300;400;500;600;700&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Zen+Kaku+Gothic+New:wght@300;400;500;700;900&display=swap"
+        rel="stylesheet">
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+    <style>
+        html {
+            --oddC: indigo;
+            --evenC: #e7ff94;
+        }
+        
+        * {
+            box-sizing: border-box;
+        }
+        
+        body,
+        textarea {
+            font-family: "Poppins", "Noto Sans JP", sans-serif;
+            background: #d8d8d8;
+        }
+        
+        .container {
+            width: 960px;
+            max-width: 96%;
+            margin: 1em auto;
+        }
+        
+        textarea {
+            display: block;
+            width: 100%;
+            height: 150px;
+            margin-bottom: 1em;
+            background: #fff7f7 !important;
+        }
+        
+        input[type="submit"] {
+            -webkit-appearance: none;
+            appearance: none;
+            border: 2px solid var(--oddC);
+            padding: 1em 2em;
+            border-radius: 73px;
+            min-width: 200px;
+            cursor: pointer;
+            background: transparent;
+        }
+        
+        input[type="submit"]:hover {
+            background: var(--oddC);
+            color: var(--evenC);
+        }
+        
+        .box div:nth-of-type(odd) {
+            background: var(--oddC);
+            color: var(--evenC);
+        }
+        
+        .box div {
+            padding: 1.6em;
+            font-size: 14px;
+            font-weight: 500;
+            margin: 3em 0;
+            border-radius: 10px;
+            box-shadow: 2px 2px 4px #9b9b9b;
+        }
+        
+        .box div:nth-of-type(even) {
+            background: var(--evenC);
+            color: var(--oddC)
+        }
+        
+        .flex {
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+        }
+        
+        .box {
+            margin-top: 1.5em;
+        }
+        
+        .box div:nth-of-type(odd) {
+            position: relative;
+        }
+        
+        .box div:nth-of-type(odd)::after {
+            content: "";
+            position: absolute;
+            top: -40px;
+            left: 8em;
+            border-width: 20px 10px;
+            border-style: solid;
+            border-color: transparent transparent var(--oddC) transparent;
+        }
+        
+        .box div:nth-of-type(even) {
+            position: relative;
+        }
+        
+        .box div:nth-of-type(even)::after {
+            content: "";
+            position: absolute;
+            top: -40px;
+            right: 8em;
+            border-width: 20px 10px;
+            border-style: solid;
+            border-color: transparent transparent var(--evenC) transparent;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <form action="backend.php" method="POST">
+            <textarea name="comment"></textarea>
+            <div class="flex">
+                <input type="submit" value="書き込む">
+            </div>
+        </form>
+        <div class="box"></div>
+    </div>
+    <!--jQuery-->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script>
+        $("form").on("submit", function(e) {
+            e.preventDefault();
+            let formData = new FormData(this);
+            $.ajax({
+                url: "backend.php",
+                type: "POST",
+                data: formData,
+                contentType: false,
+                processData: false,
+                success: function(result) {
+                    $(".box").empty().append("<p>" + result + "</p>");
+                    $("form")[0].reset();
+                }
+            })
+        });
+        $(document).ready(function() {
+            $.get("backend.php", function(result) {
+                $(".box").append("<p>" + result + "</p>");
+            })
+        })
+    </script>
+</body>
+
+</html>
+</body>
+
+</html>

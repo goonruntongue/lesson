@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <form action="backend.php" method="POST">
+        <textarea name="comment"></textarea>
+        <input type="submit" value="書き込む">
+    </form>
+    <div class="box"></div>
+    <!--jQuery-->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script>
+        $("form").on("submit", function(e) {
+            e.preventDefault();
+            let formData = new FormData(this);
+            $.ajax({
+                url: "backend.php",
+                type: "POST",
+                data: formData,
+                contentType: false,
+                processData: false,
+                success: function(result) {
+                    $(".box").empty().append("<p>" + result + "</p>");
+                    $("form")[0].reset();
+                }
+            })
+        });
+        $(document).ready(function() {
+            $.get("backend.php", function(result) {
+                $(".box").append("<p>" + result + "</p>");
+            })
+        })
+    </script>
+</body>
+
+</html>
+</body>
+
+</html>

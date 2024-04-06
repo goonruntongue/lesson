@@ -1,0 +1,88 @@
+<!--Full Template-->
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!--Google Fonts-->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@100;200;300;400;500;600;700;800;900&family=Oswald:wght@200;300;400;500;600;700&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Zen+Kaku+Gothic+New:wght@300;400;500;700;900&display=swap"
+        rel="stylesheet">
+    <!--Font Awesome-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer"
+    />
+    <style>
+        body {
+            font-family: "Poppins", "Noto Sans JP", sans-serif;
+        }
+        
+        pre.prettyprint {
+            font-family: "Poppins", "Noto Sans JP", sans-serif;
+            padding: 1em 1em 1em 0 !important;
+            border-radius: 12px;
+            word-break: break-all;
+            white-space: pre-wrap;
+        }
+        
+        pre.prettyprint li {
+            list-style-type: decimal !important;
+        }
+    </style>
+    <title>Document</title>
+    <link rel="stylesheet" href="./style.css">
+
+</head>
+
+<body>
+    <pre class="prettyprint linenums">
+// 再帰的な呼び出し（ブラウザにpタグを連続で追加）
+
+//  -------------------------
+function pPut1() {
+    $("body").append("<p>A</p>");
+    pPut1();
+}
+// pPut1();
+//無限ループ発生、ブラウザクラッシュ
+
+
+//  -------------------------
+function pPut2(i) {
+    if (i < 10) {
+        $("body").append("<p>B</p>");
+        pPut2(i + 1);
+    }
+}
+// pPut2(0);
+//繰り返しをif文と引数で制御、同時に10個出現
+
+
+//  -------------------------
+function pPut3(i) {
+    if (i < 10) {
+        setTimeout(function() {
+            $("body").append("<p>C</p>");
+            pPut3(i + 1);
+        }, 100);
+    }
+}
+// pPut3(0);
+//setTimeoutで0.1秒のウェイトをつけて再帰的に呼び出す
+</pre>
+    <!--jQeury-->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="./script.js"></script>
+    <script>
+        //google Code Prettifyを呼び出したのち、各pre.prettyprint内の「<」と「>」をエスケープする。
+        $.getScript("https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js", function() {
+            $("pre").each(function() {
+                let altChar = $(this).text().replace(/</g, "&lt;", />/g, "&gt;");
+                $(this).html(altChar);
+            })
+        })
+    </script>
+</body>
+
+</html>
