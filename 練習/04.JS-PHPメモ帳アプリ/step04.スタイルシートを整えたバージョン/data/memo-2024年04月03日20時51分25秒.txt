@@ -1,4 +1,0 @@
-<div>一つ忘れていました。<br />
-$_POST[&quot;commrnt&quot;];で送られたデータ内に&lt;script&gt;などの悪意あるコードが含まれていた場合、XSS（クロスサイトスクリプティング）という攻撃ができてしまいます。<br />
-そこで、htmlの特殊なタグをエスケープ（文字列として出力するために）<br />
-htmlspecialchars(&amp;_POST[&quot;comment&quot;],ENT_QUOTES);とするのが普通です</div>

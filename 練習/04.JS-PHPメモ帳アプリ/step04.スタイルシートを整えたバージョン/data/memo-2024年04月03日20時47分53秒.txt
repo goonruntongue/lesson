@@ -1,8 +1,0 @@
-<div>また、もし、サーバー上の.txtファイルへの直接のアドレスを指定しても見ることができないようにしたければ、<br />
-以下のコードをメモ帳に貼り付けて、<br />
-.htaccessとして保存、サーバー内のdataフォルダに入れることで、直接見ることができなくなります。<br />
-<br />
-&lt;FilesMatch&nbsp;&quot;\.txt$&quot;&gt;<br />
-&nbsp;&nbsp;&nbsp;&nbsp;Order&nbsp;Allow,Deny<br />
-&nbsp;&nbsp;&nbsp;&nbsp;Deny&nbsp;from&nbsp;all<br />
-&lt;/FilesMatch&gt;</div>
